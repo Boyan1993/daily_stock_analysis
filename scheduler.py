@@ -92,9 +92,13 @@ class Scheduler:
         """
         self._task_callback = task
         
-        # 设置每日定时任务
-        self.schedule.every().day.at(self.schedule_time).do(self._safe_run_task)
-        logger.info(f"已设置每日定时任务，执行时间: {self.schedule_time}")
+        # 设置工作日定时任务（周一到周五）
+        self.schedule.every().monday.at(self.schedule_time).do(self._safe_run_task)
+        self.schedule.every().tuesday.at(self.schedule_time).do(self._safe_run_task)
+        self.schedule.every().wednesday.at(self.schedule_time).do(self._safe_run_task)
+        self.schedule.every().thursday.at(self.schedule_time).do(self._safe_run_task)
+        self.schedule.every().friday.at(self.schedule_time).do(self._safe_run_task)
+        logger.info(f"已设置工作日定时任务，执行时间: {self.schedule_time} (周一到周五)")
         
         if run_immediately:
             logger.info("立即执行一次任务...")
